@@ -4,6 +4,7 @@ import { pb } from "@/config/pocketbaseConfig";
 import { LoggedInUserOnlyRoute } from "@/modules/auth/routeProtector/LoggedInUserOnlyRoute";
 import { AppSettingsForm } from "@/modules/settings/AppSettingsForm";
 import { getSettings, type TSettings } from "@/modules/settings/dbSettings";
+import { EnableBatchRequestsToggle } from "@/modules/settings/forms/EnableBatchRequestsToggle";
 import {
   type TUsersCollection,
   getUsersCollection,
@@ -46,6 +47,14 @@ const Page = () => {
             pb={pb}
             usersCollection={usersCollection}
             onUsersCollectionUpdate={(x) => setUsersCollection(x)}
+          />
+        )}
+
+        {settings && (
+          <EnableBatchRequestsToggle
+            pb={pb}
+            settings={settings}
+            onSettingsUpdate={(x) => setSettings(x)}
           />
         )}
       </MainLayout>

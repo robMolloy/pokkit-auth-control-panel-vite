@@ -35,46 +35,48 @@ export const Paginator = (
   }, [numberOfPages]);
 
   return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious onClick={() => setPageNumber((x) => (x === 0 ? x : x - 1))} />
-        </PaginationItem>
-        {!visiblePageNumbers.includes(0) && pageNumber > 0 && (
+    <span>
+      <Pagination>
+        <PaginationContent>
           <PaginationItem>
-            <PaginationLink onClick={() => setPageNumber(0)}>{1}</PaginationLink>
+            <PaginationPrevious onClick={() => setPageNumber((x) => (x === 0 ? x : x - 1))} />
           </PaginationItem>
-        )}
-        {!visiblePageNumbers.includes(1) && pageNumber > 0 && (
+          {!visiblePageNumbers.includes(0) && pageNumber > 0 && (
+            <PaginationItem>
+              <PaginationLink onClick={() => setPageNumber(0)}>{1}</PaginationLink>
+            </PaginationItem>
+          )}
+          {!visiblePageNumbers.includes(1) && pageNumber > 0 && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+          {visiblePageNumbers.map((x) => (
+            <PaginationItem key={x}>
+              <PaginationLink onClick={() => setPageNumber(x)} isActive={pageNumber === x}>
+                {x + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          {!visiblePageNumbers.includes(lastPageNumber - 1) && pageNumber < lastPageNumber && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+          {!visiblePageNumbers.includes(lastPageNumber) && (
+            <PaginationItem>
+              <PaginationLink onClick={() => setPageNumber(lastPageNumber)}>
+                {lastPageNumber + 1}
+              </PaginationLink>
+            </PaginationItem>
+          )}
           <PaginationItem>
-            <PaginationEllipsis />
+            <PaginationNext
+              onClick={() => setPageNumber((x) => (x === lastPageNumber ? x : x + 1))}
+            />
           </PaginationItem>
-        )}
-        {visiblePageNumbers.map((x) => (
-          <PaginationItem key={x}>
-            <PaginationLink onClick={() => setPageNumber(x)} isActive={pageNumber === x}>
-              {x + 1}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-        {!visiblePageNumbers.includes(lastPageNumber - 1) && pageNumber < lastPageNumber && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
-        {!visiblePageNumbers.includes(lastPageNumber) && (
-          <PaginationItem>
-            <PaginationLink onClick={() => setPageNumber(lastPageNumber)}>
-              {lastPageNumber + 1}
-            </PaginationLink>
-          </PaginationItem>
-        )}
-        <PaginationItem>
-          <PaginationNext
-            onClick={() => setPageNumber((x) => (x === lastPageNumber ? x : x + 1))}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+        </PaginationContent>
+      </Pagination>
+    </span>
   );
 };

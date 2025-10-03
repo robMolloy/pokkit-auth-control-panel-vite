@@ -56,7 +56,29 @@ export const UsersScreen = () => {
             );
             return (
               <>
-                <PaginatorImplementation />
+                <div className="flex justify-between">
+                  <div>
+                    <PaginatorImplementation />
+                  </div>
+                  <Button
+                    disabled={selectedUserIds.length === 0}
+                    onClick={() => {
+                      modalStore.setData(
+                        <ConfirmationModalContent
+                          title="Delete users"
+                          description="Are you sure you want to delete these users?"
+                          content={<pre>{JSON.stringify(selectedUserIds, undefined, 2)}</pre>}
+                          onConfirm={async () => {
+                            const resp = await deleteUsers({ pb, ids: selectedUserIds });
+                            toastMultiMessages(resp.messages);
+                          }}
+                        />,
+                      );
+                    }}
+                  >
+                    {`Delete selected ${selectedUserIds.length === 0 ? "" : `(${selectedUserIds.length})`}`}
+                  </Button>
+                </div>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -126,27 +148,11 @@ export const UsersScreen = () => {
                   </TableBody>
                 </Table>
                 <div className="flex justify-between">
+                  <div>
+                    <PaginatorImplementation />
+                  </div>
                   <span>{`${firstItem + 1} to ${lastItem < usersStore.data.length ? lastItem : usersStore.data.length} of ${usersStore.data.length}`}</span>
-                  <Button
-                    disabled={selectedUserIds.length === 0}
-                    onClick={() => {
-                      modalStore.setData(
-                        <ConfirmationModalContent
-                          title="Delete users"
-                          description="Are you sure you want to delete these users?"
-                          content={<pre>{JSON.stringify(selectedUserIds, undefined, 2)}</pre>}
-                          onConfirm={async () => {
-                            const resp = await deleteUsers({ pb, ids: selectedUserIds });
-                            toastMultiMessages(resp.messages);
-                          }}
-                        />,
-                      );
-                    }}
-                  >
-                    {`Delete selected ${selectedUserIds.length === 0 ? "" : `(${selectedUserIds.length})`}`}
-                  </Button>
                 </div>
-                <PaginatorImplementation />
               </>
             );
           })()}

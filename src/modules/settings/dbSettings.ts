@@ -19,6 +19,9 @@ export const settingsSchema = z.object({
     tls: z.boolean(),
     localName: z.string(),
   }),
+  batch: z.object({
+    enabled: z.boolean(),
+  }),
 });
 
 export type TSettings = z.infer<typeof settingsSchema>;
@@ -107,5 +110,23 @@ export const updateEmailSettings = async (p: {
     },
     successMessage: "Successfully updated email settings",
     failMessage: "Failed to update email settings",
+  });
+};
+
+export const enableBatchRequests = async (p: { pb: PocketBase }) => {
+  return updateSettings({
+    pb: p.pb,
+    settings: { batch: { enabled: true } },
+    successMessage: "Successfully enabled batch requests",
+    failMessage: "Failed to enable batch requests",
+  });
+};
+
+export const disableBatchRequests = async (p: { pb: PocketBase }) => {
+  return updateSettings({
+    pb: p.pb,
+    settings: { batch: { enabled: false } },
+    successMessage: "Successfully disabled batch requests",
+    failMessage: "Failed to disable batch requests",
   });
 };
