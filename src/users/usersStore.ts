@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { TUser } from "./dbUserUtils";
+import type { TUser } from "./dbUserUtils";
 
 type TState = TUser[] | null | undefined;
 

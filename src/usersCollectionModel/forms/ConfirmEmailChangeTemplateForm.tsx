@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { TextInput } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { pb, PocketBase } from "@/config/pocketbaseConfig";
-import { toastMultiMessages } from "@/modules/utils/pbUtils";
+import { pb } from "@/config/pocketbaseConfig";
 import { useEffect, useState } from "react";
-import { TUsersCollection } from "../dbUsersCollectionModelHelpers";
+
 import { updateConfirmEmailChangeTemplate } from "../dbUsersCollectionModelTemplateHelpers";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
+import type { TUsersCollection } from "../dbUsersCollectionModelHelpers";
+import { toastMultiMessages } from "@/lib/pbUtils";
+import { Textarea, TextInput } from "@/components/custom/CustomInputs";
 
 export const ConfirmEmailChangeTemplateForm = (p: {
   pb: PocketBase;

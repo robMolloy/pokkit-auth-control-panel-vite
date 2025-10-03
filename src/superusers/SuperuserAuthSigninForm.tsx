@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { H1 } from "@/components/ui/defaultComponents";
-import { TextInput } from "@/components/ui/input";
-import { PocketBase } from "@/config/pocketbaseConfig";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 import { superuserLogin } from "./dbSuperusersUtils";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
+import { H1 } from "@/components/custom/H1";
+import { TextInput } from "@/components/custom/CustomInputs";
 
 export const SuperUserAuthForm = (p: { pb: PocketBase }) => {
   const [username, setUsername] = useState("");

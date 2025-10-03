@@ -1,6 +1,6 @@
+import { extractMessageFromPbError } from "@/lib/pbUtils";
 import PocketBase from "pocketbase";
 import { z } from "zod";
-import { extractMessageFromPbError } from "../utils/pbUtils";
 
 export const userSchema = z.object({
   collectionId: z.string(),

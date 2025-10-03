@@ -1,7 +1,6 @@
-import { MainLayout } from "@/components/layout/LayoutTemplate";
-
+import { MainLayout } from "@/components/templates/LayoutTemplate";
 import { SuperUserAuthForm } from "./SuperuserAuthSigninForm";
-import { PocketBase } from "@/config/pocketbaseConfig";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
 
 export const SuperuserAuthScreen = (p: { pb: PocketBase }) => {
   return (

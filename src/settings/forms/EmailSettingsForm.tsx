@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { NumberInput, TextInput } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { SimpleSelect } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { pb, PocketBase } from "@/config/pocketbaseConfig";
-import { toastMultiMessages } from "@/modules/utils/pbUtils";
+import { pb } from "@/config/pocketbaseConfig";
 import { useEffect, useState } from "react";
-import { TSettings, updateEmailSettings } from "../dbSettings";
+import { updateEmailSettings, type TSettings } from "../dbSettings";
+import { NumberInput, SimpleSelect, TextInput } from "@/components/custom/CustomInputs";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
+import { toastMultiMessages } from "@/lib/pbUtils";
 
 const SmtpServerTlsSelect = (p: { value: boolean; onValueChange: (x: boolean) => void }) => {
   const [value, setValue] = useState(p.value);

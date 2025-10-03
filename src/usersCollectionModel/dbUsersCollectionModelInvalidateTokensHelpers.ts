@@ -1,4 +1,4 @@
-import { PocketBase } from "@/config/pocketbaseConfig";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
 import { generateToken } from "@/lib/utils";
 import { updateUsersCollectionModel } from "./dbUsersCollectionModelHelpers";
 

@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { TextInput } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { pb, PocketBase } from "@/config/pocketbaseConfig";
+import { pb } from "@/config/pocketbaseConfig";
 import { useEffect, useState } from "react";
-import { toastMultiMessages } from "../utils/pbUtils";
-import { TSettings, updateSettings as updateSettings } from "./dbSettings";
+import { updateSettings, type TSettings } from "./dbSettings";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
+import { toastMultiMessages } from "@/lib/pbUtils";
+import { TextInput } from "@/components/custom/CustomInputs";
 
 export const AppSettingsForm = (p: {
   pb: PocketBase;

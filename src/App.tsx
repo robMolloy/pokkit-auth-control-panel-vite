@@ -6,9 +6,9 @@ import { useThemeStore } from "./modules/themeToggle/themeStore";
 import { LeftSidebar } from "./modules/LeftSidebar";
 import { useUsersStore } from "./modules/auth/users/usersStore";
 import { useCurrentUserStore } from "./modules/auth/authDataStore";
-import { useInitAuth } from "./modules/auth/useInitAuth";
 import { pb } from "./config/pocketbaseConfig";
 import { smartSubscribeToUsers } from "./modules/auth/users/dbUsersUtils";
+import { useInitAuth } from "./superusers/useInitAuth";
 
 function App() {
   return useRoutes(routes);

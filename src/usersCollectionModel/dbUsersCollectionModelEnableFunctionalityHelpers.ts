@@ -1,4 +1,4 @@
-import { PocketBase } from "@/config/pocketbaseConfig";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
 import { updateUsersCollectionModel } from "./dbUsersCollectionModelHelpers";
 
 export const enableAuthAlert = async (p: { pb: PocketBase }) => {

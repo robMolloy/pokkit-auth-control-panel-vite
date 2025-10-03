@@ -1,7 +1,7 @@
 import PocketBase from "pocketbase";
-import { TUser, userSchema } from "./dbUserUtils";
-import { extractMessageFromPbError } from "../utils/pbUtils";
+import { userSchema, type TUser } from "./dbUserUtils";
 import { z } from "zod";
+import { extractMessageFromPbError } from "@/lib/pbUtils";
 
 export const listUsers = async (p: { pb: PocketBase }) => {
   try {

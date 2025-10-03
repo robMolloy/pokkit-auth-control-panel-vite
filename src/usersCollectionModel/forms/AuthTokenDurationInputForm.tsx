@@ -1,16 +1,17 @@
 import { Button } from "@/components/ui/button";
-import { NumberInput } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { pb, PocketBase } from "@/config/pocketbaseConfig";
+import { pb } from "@/config/pocketbaseConfig";
 import { useEffect, useState } from "react";
 
-import { ConfirmationModalContent } from "@/components/Modal";
-import { toastMultiMessages } from "@/modules/utils/pbUtils";
-import { useModalStore } from "@/stores/modalStore";
-import Link from "next/link";
-import { TUsersCollection } from "../dbUsersCollectionModelHelpers";
 import { updateAuthTokenDuration } from "../dbUsersCollectionModelTokenDurationHelpers";
 import { invalidateAuthTokens } from "../dbUsersCollectionModelInvalidateTokensHelpers";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
+import type { TUsersCollection } from "../dbUsersCollectionModelHelpers";
+import { useModalStore } from "@/components/templates/modal/modalStore";
+import { toastMultiMessages } from "@/lib/pbUtils";
+import { Link } from "react-router-dom";
+import { ConfirmationModalContent } from "@/components/templates/modal/Modal";
+import { NumberInput } from "@/components/custom/CustomInputs";
 
 export const AuthTokenDurationInputForm = (p: {
   pb: PocketBase;
@@ -52,7 +53,7 @@ export const AuthTokenDurationInputForm = (p: {
         <Button type="submit">Submit</Button>
       </span>
       <Link
-        href="#"
+        to="#"
         onClick={() =>
           modalStore.setData(
             <ConfirmationModalContent

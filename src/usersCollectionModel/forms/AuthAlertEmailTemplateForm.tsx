@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { TextInput } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { pb, PocketBase } from "@/config/pocketbaseConfig";
-import { toastMultiMessages } from "@/modules/utils/pbUtils";
+import { pb } from "@/config/pocketbaseConfig";
 import { useEffect, useState } from "react";
-import { TUsersCollection } from "../dbUsersCollectionModelHelpers";
 import { updateAuthAlertEmailTemplate } from "../dbUsersCollectionModelTemplateHelpers";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
+import type { TUsersCollection } from "../dbUsersCollectionModelHelpers";
+import { Textarea, TextInput } from "@/components/custom/CustomInputs";
+import { toastMultiMessages } from "@/lib/pbUtils";
 
 export const AuthAlertEmailTemplateForm = (p: {
   pb: PocketBase;

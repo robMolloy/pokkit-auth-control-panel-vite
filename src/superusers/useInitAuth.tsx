@@ -1,13 +1,15 @@
 import { pb } from "@/config/pocketbaseConfig";
+import { useEffect } from "react";
+import { subscribeToSuperuser } from "../superusers/dbSuperusersUtils";
 import {
   useCurrentUserStore,
   useUnverifiedIsLoggedInStore,
   useUnverifiedIsLoggedInSync,
-} from "@/stores/authDataStore";
-import { useEffect } from "react";
-import { subscribeToSuperuser } from "../superusers/dbSuperusersUtils";
+} from "@/modules/auth/authDataStore";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
 
 export const useInitAuth = (p: {
+  pb: PocketBase;
   onIsLoading: () => void;
   onIsLoggedIn: () => void;
   onIsLoggedOut: () => void;
@@ -16,7 +18,7 @@ export const useInitAuth = (p: {
 
   const currentUserStore = useCurrentUserStore();
 
-  useUnverifiedIsLoggedInSync({ pb });
+  useUnverifiedIsLoggedInSync({ pb: p.pb });
 
   useEffect(() => {
     // use anfn as return value is not cleanup

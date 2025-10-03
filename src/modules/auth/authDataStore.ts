@@ -1,7 +1,8 @@
 import PocketBase from "pocketbase";
 import { useEffect } from "react";
 import { create } from "zustand";
-import { pocketbaseAuthStoreSchema, type TAuth, type TUser } from "./dbAuthUtils";
+import { pocketbaseAuthStoreSchema, type TAuth } from "./dbAuthUtils";
+import type { TSuperuser } from "@/superusers/dbSuperusersUtils";
 
 type TState = { authStatus: "loading" | "loggedOut" } | { authStatus: "loggedIn"; user: TAuth };
 
@@ -38,7 +39,7 @@ export const useUnverifiedIsLoggedInSync = (p: { pb: PocketBase }) => {
 
 type TCurrentUserState =
   | { authStatus: "loading" | "loggedOut" }
-  | { authStatus: "loggedIn"; user: TUser };
+  | { authStatus: "loggedIn"; user: TSuperuser };
 
 export const useCurrentUserStore = create<{
   data: TCurrentUserState;

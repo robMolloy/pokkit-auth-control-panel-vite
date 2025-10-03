@@ -1,7 +1,7 @@
-import { PocketBase } from "@/config/pocketbaseConfig";
+import { extractMessageFromPbError } from "@/lib/pbUtils";
+import type { DeepPartial } from "@/lib/typeUtils";
+import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
 import { z } from "zod";
-import { extractMessageFromPbError } from "../utils/pbUtils";
-import { DeepPartial } from "../utils/typeUtils";
 
 export const settingsSchema = z.object({
   meta: z.object({
