@@ -9,7 +9,6 @@ import { useUsersStore } from "@/modules/users/usersStore";
 import { useInitAuth } from "./modules/superusers/useInitAuth";
 import { useCurrentUserStore } from "./stores/authDataStore";
 import { smartSubscribeToUsers } from "./modules/users/dbUsersUtils";
-import { Toaster } from "./components/ui/sonner";
 
 function App() {
   return useRoutes(routes);
@@ -36,7 +35,6 @@ function AppWrapper() {
 
   return (
     <>
-      <Toaster />
       <BrowserRouter basename={import.meta.env.VITE_APP_BASE_URL}>
         <LayoutTemplate
           Header={<Header />}

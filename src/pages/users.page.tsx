@@ -1,7 +1,7 @@
 import { H1 } from "@/components/custom/H1";
 import { Paginator } from "@/components/custom/Paginator";
 import { MainLayout } from "@/components/templates/LayoutTemplate";
-import { ConfirmationModalContent } from "@/components/templates/modal/Modal";
+import { ConfirmationModalContent, ModalContent } from "@/components/templates/modal/Modal";
 import { useModalStore } from "@/components/templates/modal/modalStore";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -21,6 +21,8 @@ import { deleteUsers } from "@/modules/users/dbUsersUtils";
 import { deleteUser } from "@/modules/users/dbUserUtils";
 import { useUsersStore } from "@/modules/users/usersStore";
 import { useEffect, useState } from "react";
+import { getSettings, type TSettings } from "@/modules/settings/dbSettings";
+import { EnableBatchRequestsToggle } from "@/modules/settings/forms/EnableBatchRequestsToggle";
 
 export const UsersScreen = () => {
   const usersStore = useUsersStore();
@@ -35,6 +37,15 @@ export const UsersScreen = () => {
 
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   useEffect(() => setSelectedUserIds([]), [usersStore.data, pageNumber]);
+
+  const [settings, setSettings] = useState<TSettings>();
+
+  useEffect(() => {
+    (async () => {
+      const resp = await getSettings({ pb });
+      if (resp.success) setSettings(resp.data);
+    })();
+  }, []);
 
   return (
     <LoggedInUserOnlyRoute>
@@ -60,24 +71,44 @@ export const UsersScreen = () => {
                   <div>
                     <PaginatorImplementation />
                   </div>
-                  <Button
-                    disabled={selectedUserIds.length === 0}
-                    onClick={() => {
-                      modalStore.setData(
-                        <ConfirmationModalContent
-                          title="Delete users"
-                          description="Are you sure you want to delete these users?"
-                          content={<pre>{JSON.stringify(selectedUserIds, undefined, 2)}</pre>}
-                          onConfirm={async () => {
-                            const resp = await deleteUsers({ pb, ids: selectedUserIds });
-                            toastMultiMessages(resp.messages);
-                          }}
-                        />,
-                      );
-                    }}
-                  >
-                    {`Delete selected ${selectedUserIds.length === 0 ? "" : `(${selectedUserIds.length})`}`}
-                  </Button>
+
+                  {settings && (
+                    <Button
+                      disabled={selectedUserIds.length === 0}
+                      onClick={() => {
+                        modalStore.setData(
+                          settings.batch.enabled ? (
+                            <ConfirmationModalContent
+                              title="Delete users"
+                              description="Are you sure you want to delete these users?"
+                              content={<pre>{JSON.stringify(selectedUserIds, undefined, 2)}</pre>}
+                              onConfirm={async () => {
+                                const resp = await deleteUsers({ pb, ids: selectedUserIds });
+                                toastMultiMessages(resp.messages);
+                              }}
+                            />
+                          ) : (
+                            <ModalContent
+                              title="Delete users"
+                              description="You will first need to enable batch requests "
+                              content={
+                                <EnableBatchRequestsToggle
+                                  pb={pb}
+                                  settings={settings}
+                                  onSettingsUpdate={(x) => {
+                                    setSettings(x);
+                                    if (x.batch.enabled) modalStore.close();
+                                  }}
+                                />
+                              }
+                            />
+                          ),
+                        );
+                      }}
+                    >
+                      {`Delete selected ${selectedUserIds.length === 0 ? "" : `(${selectedUserIds.length})`}`}
+                    </Button>
+                  )}
                 </div>
                 <Table>
                   <TableHeader>

@@ -32,31 +32,33 @@ const Page = () => {
   return (
     <LoggedInUserOnlyRoute>
       <MainLayout>
-        <H1>App Settings</H1>
-        <br />
-        {settings && (
-          <AppSettingsForm
-            pb={pb}
-            appName={settings.meta.appName}
-            appUrl={settings.meta.appURL}
-            onSettingsUpdate={(x) => setSettings(x)}
-          />
-        )}
-        {usersCollection && (
-          <EnableAuthAlertToggle
-            pb={pb}
-            usersCollection={usersCollection}
-            onUsersCollectionUpdate={(x) => setUsersCollection(x)}
-          />
-        )}
+        <div className="flex flex-col gap-4">
+          <H1>App Settings</H1>
+          {usersCollection && (
+            <EnableAuthAlertToggle
+              pb={pb}
+              usersCollection={usersCollection}
+              onUsersCollectionUpdate={(x) => setUsersCollection(x)}
+            />
+          )}
 
-        {settings && (
-          <EnableBatchRequestsToggle
-            pb={pb}
-            settings={settings}
-            onSettingsUpdate={(x) => setSettings(x)}
-          />
-        )}
+          {settings && (
+            <EnableBatchRequestsToggle
+              pb={pb}
+              settings={settings}
+              onSettingsUpdate={(x) => setSettings(x)}
+            />
+          )}
+
+          {settings && (
+            <AppSettingsForm
+              pb={pb}
+              appName={settings.meta.appName}
+              appUrl={settings.meta.appURL}
+              onSettingsUpdate={(x) => setSettings(x)}
+            />
+          )}
+        </div>
       </MainLayout>
     </LoggedInUserOnlyRoute>
   );
