@@ -44,7 +44,7 @@ export const OtpEmailTemplateForm = (p: {
           id="users-collection-otpEmailTemplateSubject-input"
           disabled={isLoading}
           value={subject}
-          onInput={async (subject) => setSubject(subject)}
+          onInput={(subject) => setSubject(subject)}
         />
       </div>
       <div>

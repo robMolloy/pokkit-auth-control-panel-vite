@@ -44,7 +44,7 @@ export const AuthAlertEmailTemplateForm = (p: {
           id="users-collection-authAlertEmailTemplateSubject-input"
           disabled={isLoading}
           value={subject}
-          onInput={async (subject) => setSubject(subject)}
+          onInput={(subject) => setSubject(subject)}
         />
       </div>
       <div>

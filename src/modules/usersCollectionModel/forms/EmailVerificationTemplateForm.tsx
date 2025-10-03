@@ -44,7 +44,7 @@ export const EmailVerificationTemplateForm = (p: {
           id="users-collection-emailVerificationTemplateSubject-input"
           disabled={isLoading}
           value={subject}
-          onInput={async (subject) => setSubject(subject)}
+          onInput={(subject) => setSubject(subject)}
         />
       </div>
       <div>

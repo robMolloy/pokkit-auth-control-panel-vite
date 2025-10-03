@@ -49,7 +49,7 @@ export const PasswordResetTokenDurationInputForm = (p: {
           id="users-collection-passwordResetTokenDuration-input"
           disabled={isLoading}
           value={value}
-          onInput={async (e) => setValue(e)}
+          onInput={(e) => setValue(e)}
         />
         <Button type="submit">Submit</Button>
       </span>

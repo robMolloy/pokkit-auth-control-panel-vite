@@ -44,7 +44,7 @@ export const ResetPasswordTemplateForm = (p: {
           id="users-collection-resetPasswordTemplateSubject-input"
           disabled={isLoading}
           value={subject}
-          onInput={async (subject) => setSubject(subject)}
+          onInput={(subject) => setSubject(subject)}
         />
       </div>
       <div>

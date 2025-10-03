@@ -45,7 +45,7 @@ export const ConfirmEmailChangeTemplateForm = (p: {
           id="users-collection-confirmEmailChangeTemplateSubject-input"
           disabled={isLoading}
           value={subject}
-          onInput={async (subject) => setSubject(subject)}
+          onInput={(subject) => setSubject(subject)}
         />
       </div>
       <div>

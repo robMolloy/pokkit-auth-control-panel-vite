@@ -48,7 +48,7 @@ export const AuthTokenDurationInputForm = (p: {
           id="users-collection-authTokenDuration-input"
           disabled={isLoading}
           value={value}
-          onInput={async (e) => setValue(e)}
+          onInput={(e) => setValue(e)}
         />
         <Button type="submit">Submit</Button>
       </span>

@@ -49,7 +49,7 @@ export const ProtectedFileAccessTokenDurationInputForm = (p: {
           id="users-collection-protectedFileAccessTokenDuration-input"
           disabled={isLoading}
           value={value}
-          onInput={async (e) => setValue(e)}
+          onInput={(e) => setValue(e)}
         />
         <Button type="submit">Submit</Button>
       </span>
