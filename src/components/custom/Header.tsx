@@ -1,7 +1,7 @@
 import { CustomIcon } from "@/components/custom/CustomIcon";
 import { HeaderTemplate } from "@/components/templates/HeaderTemplate";
 import { Link } from "react-router-dom";
-import { ThemeToggle } from "./themeToggle/ThemeToggle";
+import { ThemeToggle } from "../../modules/themeToggle/ThemeToggle";
 
 export const Header = () => {
   return (

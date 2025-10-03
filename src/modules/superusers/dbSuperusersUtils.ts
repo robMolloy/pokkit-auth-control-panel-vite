@@ -1,3 +1,4 @@
+import { extractMessageFromPbError } from "@/lib/pbUtils";
 import PocketBase from "pocketbase";
 import { z } from "zod";
 
@@ -68,8 +69,18 @@ export const superuserLogin = async (p: { pb: PocketBase; username: string; pass
   try {
     const resp = await p.pb.collection(collectionName).authWithPassword(p.username, p.password);
 
-    return superuserSchema.safeParse(resp.record);
+    const data = superuserSchema.parse(resp.record);
+    return {
+      success: true,
+      data,
+      messages: ["Successfully signed in superuser"] as string[],
+    } as const;
   } catch (error) {
-    return { success: false, error } as const;
+    console.log(`dbSuperusersUtils.ts:${/*LL*/ 73}`, { error });
+    const messagesResp = extractMessageFromPbError({ error });
+
+    const messages = ["Failed to sign in superuser", ...(messagesResp ? messagesResp : [])];
+
+    return { success: false, error, messages } as const;
   }
 };

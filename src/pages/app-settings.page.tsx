@@ -1,13 +1,14 @@
 import { H1 } from "@/components/custom/H1";
 import { MainLayout } from "@/components/templates/LayoutTemplate";
 import { pb } from "@/config/pocketbaseConfig";
-import { AppSettingsForm } from "@/settings/AppSettingsForm";
-import { getSettings, type TSettings } from "@/settings/dbSettings";
+import { LoggedInUserOnlyRoute } from "@/modules/routeProtector/LoggedInUserOnlyRoute";
+import { AppSettingsForm } from "@/modules/settings/AppSettingsForm";
+import { getSettings, type TSettings } from "@/modules/settings/dbSettings";
 import {
   type TUsersCollection,
   getUsersCollection,
-} from "@/usersCollectionModel/dbUsersCollectionModelHelpers";
-import { EnableAuthAlertToggle } from "@/usersCollectionModel/forms/EnableAuthAlertToggle";
+} from "@/modules/usersCollectionModel/dbUsersCollectionModelHelpers";
+import { EnableAuthAlertToggle } from "@/modules/usersCollectionModel/forms/EnableAuthAlertToggle";
 import { useEffect, useState } from "react";
 
 const Page = () => {
@@ -28,25 +29,27 @@ const Page = () => {
     })();
   }, []);
   return (
-    <MainLayout>
-      <H1>App Settings</H1>
-      <br />
-      {settings && (
-        <AppSettingsForm
-          pb={pb}
-          appName={settings.meta.appName}
-          appUrl={settings.meta.appURL}
-          onSettingsUpdate={(x) => setSettings(x)}
-        />
-      )}
-      {usersCollection && (
-        <EnableAuthAlertToggle
-          pb={pb}
-          usersCollection={usersCollection}
-          onUsersCollectionUpdate={(x) => setUsersCollection(x)}
-        />
-      )}
-    </MainLayout>
+    <LoggedInUserOnlyRoute>
+      <MainLayout>
+        <H1>App Settings</H1>
+        <br />
+        {settings && (
+          <AppSettingsForm
+            pb={pb}
+            appName={settings.meta.appName}
+            appUrl={settings.meta.appURL}
+            onSettingsUpdate={(x) => setSettings(x)}
+          />
+        )}
+        {usersCollection && (
+          <EnableAuthAlertToggle
+            pb={pb}
+            usersCollection={usersCollection}
+            onUsersCollectionUpdate={(x) => setUsersCollection(x)}
+          />
+        )}
+      </MainLayout>
+    </LoggedInUserOnlyRoute>
   );
 };
 

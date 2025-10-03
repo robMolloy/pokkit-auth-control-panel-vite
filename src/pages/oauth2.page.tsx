@@ -1,12 +1,13 @@
 import { H1 } from "@/components/custom/H1";
 import { MainLayout } from "@/components/templates/LayoutTemplate";
 import { pb } from "@/config/pocketbaseConfig";
+import { LoggedInUserOnlyRoute } from "@/modules/routeProtector/LoggedInUserOnlyRoute";
 import {
   type TUsersCollection,
   getUsersCollection,
-} from "@/usersCollectionModel/dbUsersCollectionModelHelpers";
-import { EnableOAuth2Toggle } from "@/usersCollectionModel/forms/EnableUsersCollectionOAuth2Toggle";
-import { OAuth2ProvidersFormCards } from "@/usersCollectionModel/forms/OAuth2ProviderFormCards";
+} from "@/modules/usersCollectionModel/dbUsersCollectionModelHelpers";
+import { EnableOAuth2Toggle } from "@/modules/usersCollectionModel/forms/EnableUsersCollectionOAuth2Toggle";
+import { OAuth2ProvidersFormCards } from "@/modules/usersCollectionModel/forms/OAuth2ProviderFormCards";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -20,24 +21,26 @@ export default function Home() {
   }, []);
 
   return (
-    <MainLayout>
-      <H1>oAuth2</H1>
-      <br />
-      {usersCollection && (
-        <>
-          <EnableOAuth2Toggle
-            pb={pb}
-            usersCollection={usersCollection}
-            onUsersCollectionUpdate={(x) => setUsersCollection(x)}
-          />
-          <br />
-          <OAuth2ProvidersFormCards
-            pb={pb}
-            usersCollection={usersCollection}
-            onUsersCollectionUpdate={(x) => setUsersCollection(x)}
-          />
-        </>
-      )}
-    </MainLayout>
+    <LoggedInUserOnlyRoute>
+      <MainLayout>
+        <H1>oAuth2</H1>
+        <br />
+        {usersCollection && (
+          <>
+            <EnableOAuth2Toggle
+              pb={pb}
+              usersCollection={usersCollection}
+              onUsersCollectionUpdate={(x) => setUsersCollection(x)}
+            />
+            <br />
+            <OAuth2ProvidersFormCards
+              pb={pb}
+              usersCollection={usersCollection}
+              onUsersCollectionUpdate={(x) => setUsersCollection(x)}
+            />
+          </>
+        )}
+      </MainLayout>
+    </LoggedInUserOnlyRoute>
   );
 }

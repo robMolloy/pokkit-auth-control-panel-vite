@@ -6,11 +6,17 @@ import { superuserLogin } from "./dbSuperusersUtils";
 import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
 import { H1 } from "@/components/custom/H1";
 import { TextInput } from "@/components/custom/CustomInputs";
+import {
+  FormFeedbackMessages,
+  useFormFeedbackMessages,
+} from "@/modules/auth/formTemplates/FormFeedbackMessages";
 
 export const SuperUserAuthForm = (p: { pb: PocketBase }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const formFeedback = useFormFeedbackMessages();
 
   return (
     <Card>
@@ -18,6 +24,9 @@ export const SuperUserAuthForm = (p: { pb: PocketBase }) => {
         <H1>SuperUser Sign In</H1>
       </CardHeader>
       <CardContent>
+        {formFeedback.messages && formFeedback.status && (
+          <FormFeedbackMessages messages={formFeedback.messages} status={formFeedback.status} />
+        )}
         <form
           className="flex flex-col gap-4"
           onSubmit={async (e) => {
@@ -25,7 +34,10 @@ export const SuperUserAuthForm = (p: { pb: PocketBase }) => {
 
             setIsLoading(true);
 
-            await superuserLogin({ pb: p.pb, username, password });
+            const resp = await superuserLogin({ pb: p.pb, username, password });
+            const feedbackFn = resp.success ? formFeedback.showSuccess : formFeedback.showError;
+            feedbackFn(resp.messages);
+            console.log(`SuperuserAuthSigninForm.tsx:${/*LL*/ 40}`, { resp });
 
             setIsLoading(false);
           }}

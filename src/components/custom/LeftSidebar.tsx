@@ -2,8 +2,8 @@ import { LeftSidebarTemplate, SidebarButton } from "@/components/templates/LeftS
 import { pb } from "@/config/pocketbaseConfig";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useCurrentUserStore } from "./auth/authDataStore";
-import { logout } from "./auth/dbAuthUtils";
+import { useCurrentUserStore } from "../../modules/auth/authDataStore";
+import { logout } from "../../modules/auth/dbAuthUtils";
 
 export const LeftSidebar = () => {
   const currentUserStore = useCurrentUserStore();

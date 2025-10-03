@@ -1,14 +1,14 @@
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import routes from "~react-pages";
 import { LayoutTemplate } from "./components/templates/LayoutTemplate";
-import { Header } from "./modules/Header";
+import { Header } from "./components/custom/Header";
 import { useThemeStore } from "./modules/themeToggle/themeStore";
-import { LeftSidebar } from "./modules/LeftSidebar";
-import { useUsersStore } from "./modules/auth/users/usersStore";
-import { useCurrentUserStore } from "./modules/auth/authDataStore";
+import { LeftSidebar } from "./components/custom/LeftSidebar";
 import { pb } from "./config/pocketbaseConfig";
 import { smartSubscribeToUsers } from "./modules/auth/users/dbUsersUtils";
-import { useInitAuth } from "./superusers/useInitAuth";
+import { useUsersStore } from "@/modules/users/usersStore";
+import { useCurrentUserStore } from "./modules/auth/authDataStore";
+import { useInitAuth } from "./modules/superusers/useInitAuth";
 
 function App() {
   return useRoutes(routes);
@@ -21,12 +21,16 @@ function AppWrapper() {
   themeStore.useThemeStoreSideEffect();
 
   useInitAuth({
-    pb: pb,
-    onIsLoading: () => {},
-    onIsLoggedIn: () => {
-      smartSubscribeToUsers({ pb, onChange: (x) => usersStore.setData(x) });
+    pb,
+    onIsLoading: () => {
+      usersStore.setData(undefined);
     },
-    onIsLoggedOut: () => {},
+    onIsLoggedIn: () => {
+      smartSubscribeToUsers({ pb: pb, onChange: (x) => usersStore.setData(x) });
+    },
+    onIsLoggedOut: () => {
+      usersStore.setData(null);
+    },
   });
 
   return (
