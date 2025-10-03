@@ -1,51 +1,88 @@
-import { LeftSidebarTemplate, SidebarButton } from "@/components/templates/LeftSidebarTemplate";
 import { pb } from "@/config/pocketbaseConfig";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { logout } from "../../modules/auth/dbAuthUtils";
+import { logout } from "@/modules/auth/dbAuthUtils";
 import { useCurrentUserStore } from "@/stores/authDataStore";
+import { useLocation } from "react-router-dom";
+import { PreserveScrollAbility } from "../templates/LayoutTemplate";
+import { LeftSidebarTemplate, SidebarButton } from "../templates/LeftSidebarTemplate";
 
-export const LeftSidebar = () => {
+export function LeftSidebar() {
   const currentUserStore = useCurrentUserStore();
-  const [scrollItemIndex, setScrollItemIndex] = useState(0);
+
+  const isApproved = currentUserStore.data.authStatus === "loggedIn";
 
   const location = useLocation();
 
   return (
-    <div className="w-64">
+    <PreserveScrollAbility className="w-64">
       <LeftSidebarTemplate
         top={
-          <>
-            <SidebarButton href="/" iconName="Home" isHighlighted={location.pathname === "/"}>
-              Home
-            </SidebarButton>
-            <SidebarButton
-              href="/scroll"
-              iconName="Ban"
-              isHighlighted={location.pathname === "/scroll"}
-            >
-              Scroll
-            </SidebarButton>
-          </>
+          isApproved && (
+            <>
+              <SidebarButton href="/" iconName="Home" isHighlighted={location.pathname === "/"}>
+                Home
+              </SidebarButton>
+              <SidebarButton
+                href="/app-settings"
+                iconName="Settings"
+                isHighlighted={location.pathname === "/app-settings"}
+              >
+                App Settings
+              </SidebarButton>
+              <SidebarButton
+                href="/users"
+                iconName="Users"
+                isHighlighted={location.pathname === "/users"}
+              >
+                Users
+              </SidebarButton>
+              <SidebarButton
+                href="/auth-methods"
+                iconName="Shield"
+                isHighlighted={location.pathname === "/auth-methods"}
+              >
+                Auth Methods
+              </SidebarButton>
+              <SidebarButton
+                href="/oauth2"
+                iconName="Link"
+                isHighlighted={location.pathname === "/oauth2"}
+              >
+                oAuth2
+              </SidebarButton>
+              <SidebarButton
+                href="/email-settings"
+                iconName="Mail"
+                isHighlighted={location.pathname === "/email-settings"}
+              >
+                Email Settings
+              </SidebarButton>
+              <SidebarButton
+                href="/email-templates"
+                iconName="FileText"
+                isHighlighted={location.pathname === "/email-templates"}
+              >
+                Email Templates
+              </SidebarButton>
+              <SidebarButton
+                href="/tokens"
+                iconName="Key"
+                isHighlighted={location.pathname === "/tokens"}
+              >
+                Tokens
+              </SidebarButton>
+            </>
+          )
         }
-        middle={[...Array(100)].map((_, j) => (
-          <SidebarButton
-            iconName="Ban"
-            key={j}
-            isHighlighted={j === scrollItemIndex}
-            onClick={() => setScrollItemIndex(j)}
-          >
-            do summit {j} {j === scrollItemIndex && <>(selected)</>}
-          </SidebarButton>
-        ))}
         bottom={
           currentUserStore.data.authStatus === "loggedIn" && (
-            <SidebarButton iconName="LogOut" isHighlighted={false} onClick={() => logout({ pb })}>
-              Log Out
-            </SidebarButton>
+            <>
+              <SidebarButton iconName="LogOut" isHighlighted={false} onClick={() => logout({ pb })}>
+                Log Out
+              </SidebarButton>
+            </>
           )
         }
       />
-    </div>
+    </PreserveScrollAbility>
   );
-};
+}
