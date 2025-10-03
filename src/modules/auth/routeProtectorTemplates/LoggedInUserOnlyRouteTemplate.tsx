@@ -1,4 +1,4 @@
-import { useCurrentUserStore } from "../authDataStore";
+import { useCurrentUserStore } from "@/stores/authDataStore";
 import { GenericRouteProtectorTemplate } from "./GenericRouteProtectorTemplate";
 
 export const LoggedInUserOnlyRouteTemplate = (p: {

@@ -1,12 +1,11 @@
-import { pb } from "@/config/pocketbaseConfig";
-import { useEffect } from "react";
-import { subscribeToSuperuser } from "../superusers/dbSuperusersUtils";
 import {
   useCurrentUserStore,
   useUnverifiedIsLoggedInStore,
   useUnverifiedIsLoggedInSync,
-} from "@/modules/auth/authDataStore";
-import type { PocketBase } from "@/modules/auth/pocketbaseTypeHelpers";
+} from "@/stores/authDataStore";
+import { useEffect } from "react";
+import { subscribeToSuperuser } from "../superusers/dbSuperusersUtils";
+import type { PocketBase } from "../auth/pocketbaseTypeHelpers";
 
 export const useInitAuth = (p: {
   pb: PocketBase;
@@ -33,7 +32,7 @@ export const useInitAuth = (p: {
         return console.error("should never be hit");
 
       return subscribeToSuperuser({
-        pb,
+        pb: p.pb,
         id: unverifiedIsLoggedInStore.data.user.record.id,
         onChange: (user) => {
           if (user) currentUserStore.setData({ authStatus: "loggedIn", user });

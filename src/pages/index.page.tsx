@@ -1,6 +1,6 @@
 import { H1 } from "@/components/custom/H1";
 import { MainLayout } from "@/components/templates/LayoutTemplate";
-import { LoggedInUserOnlyRoute } from "@/modules/routeProtector/LoggedInUserOnlyRoute";
+import { LoggedInUserOnlyRoute } from "@/modules/auth/routeProtector/LoggedInUserOnlyRoute";
 
 export default function Home() {
   return (

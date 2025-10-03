@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import { pb } from "@/config/pocketbaseConfig";
 import { toastMultiMessages } from "@/lib/pbUtils";
-import { LoggedInUserOnlyRoute } from "@/modules/routeProtector/LoggedInUserOnlyRoute";
+import { LoggedInUserOnlyRoute } from "@/modules/auth/routeProtector/LoggedInUserOnlyRoute";
 import { LoadingScreen } from "@/screens/LoadingScreen";
 import { deleteUsers } from "@/modules/users/dbUsersUtils";
 import { deleteUser } from "@/modules/users/dbUserUtils";

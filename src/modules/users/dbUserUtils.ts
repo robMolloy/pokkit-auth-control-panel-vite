@@ -2,9 +2,10 @@ import { extractMessageFromPbError } from "@/lib/pbUtils";
 import PocketBase from "pocketbase";
 import { z } from "zod";
 
+const collectionName = "users";
 export const userSchema = z.object({
   collectionId: z.string(),
-  collectionName: z.literal("users"),
+  collectionName: z.literal(collectionName),
   id: z.string(),
   email: z.string(),
   name: z.string(),
@@ -15,7 +16,7 @@ export type TUser = z.infer<typeof userSchema>;
 
 export const getUser = async (p: { pb: PocketBase; id: string }) => {
   try {
-    const userResp = await p.pb.collection("users").getOne(p.id);
+    const userResp = await p.pb.collection(collectionName).getOne(p.id);
     return userSchema.safeParse(userResp);
   } catch (e) {
     const error = e as { message: string };
@@ -31,7 +32,7 @@ export const subscribeToUser = async (p: {
     const userResp = await getUser(p);
     p.onChange(userResp.success ? userResp.data : null);
 
-    const unsub = p.pb.collection("users").subscribe(p.id, (e) => {
+    const unsub = p.pb.collection(collectionName).subscribe(p.id, (e) => {
       const parseResp = userSchema.safeParse(e.record);
       p.onChange(parseResp.success ? parseResp.data : null);
     });
@@ -45,7 +46,7 @@ export const subscribeToUser = async (p: {
 
 export const deleteUser = async (p: { pb: PocketBase; id: string }) => {
   try {
-    const resp = await p.pb.collection("users").delete(p.id);
+    const resp = await p.pb.collection(collectionName).delete(p.id);
 
     z.literal(true).parse(resp);
 

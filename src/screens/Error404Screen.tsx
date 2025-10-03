@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "@/modules/auth/formTemplates/Link";
+import { Link } from "react-router-dom";
 
 export const Error404Screen = () => {
   return (
@@ -10,7 +10,7 @@ export const Error404Screen = () => {
       </div>
       <br />
       <Button asChild>
-        <Link href="/">Go home</Link>
+        <Link to="/">Go home</Link>
       </Button>
     </div>
   );

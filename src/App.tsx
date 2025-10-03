@@ -5,10 +5,10 @@ import { Header } from "./components/custom/Header";
 import { useThemeStore } from "./modules/themeToggle/themeStore";
 import { LeftSidebar } from "./components/custom/LeftSidebar";
 import { pb } from "./config/pocketbaseConfig";
-import { smartSubscribeToUsers } from "./modules/auth/users/dbUsersUtils";
 import { useUsersStore } from "@/modules/users/usersStore";
-import { useCurrentUserStore } from "./modules/auth/authDataStore";
 import { useInitAuth } from "./modules/superusers/useInitAuth";
+import { useCurrentUserStore } from "./stores/authDataStore";
+import { smartSubscribeToUsers } from "./modules/users/dbUsersUtils";
 
 function App() {
   return useRoutes(routes);

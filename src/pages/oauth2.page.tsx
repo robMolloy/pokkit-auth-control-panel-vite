@@ -1,7 +1,7 @@
 import { H1 } from "@/components/custom/H1";
 import { MainLayout } from "@/components/templates/LayoutTemplate";
 import { pb } from "@/config/pocketbaseConfig";
-import { LoggedInUserOnlyRoute } from "@/modules/routeProtector/LoggedInUserOnlyRoute";
+import { LoggedInUserOnlyRoute } from "@/modules/auth/routeProtector/LoggedInUserOnlyRoute";
 import {
   type TUsersCollection,
   getUsersCollection,

@@ -1,6 +1,6 @@
 import { LoadingScreen } from "@/screens/LoadingScreen";
 import { useNavigate } from "react-router-dom";
-import { LoggedOutUserOnlyRouteTemplate } from "../auth/routeProtectorTemplates/LoggedOutUserOnlyRouteTemplate";
+import { LoggedOutUserOnlyRouteTemplate } from "../routeProtectorTemplates/LoggedOutUserOnlyRouteTemplate";
 
 export const LoggedOutUserOnlyRoute = (p: { children: React.ReactNode }) => {
   const navigate = useNavigate();

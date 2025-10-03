@@ -1,4 +1,4 @@
-import { useCurrentUserStore, useUnverifiedIsLoggedInStore } from "@/modules/auth/authDataStore";
+import { useCurrentUserStore, useUnverifiedIsLoggedInStore } from "@/stores/authDataStore";
 
 export const LogScreen = () => {
   const currentUserStore = useCurrentUserStore();

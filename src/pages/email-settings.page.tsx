@@ -1,7 +1,7 @@
 import { H1 } from "@/components/custom/H1";
 import { MainLayout } from "@/components/templates/LayoutTemplate";
 import { pb } from "@/config/pocketbaseConfig";
-import { LoggedInUserOnlyRoute } from "@/modules/routeProtector/LoggedInUserOnlyRoute";
+import { LoggedInUserOnlyRoute } from "@/modules/auth/routeProtector/LoggedInUserOnlyRoute";
 import { type TSettings, getSettings } from "@/modules/settings/dbSettings";
 import { EmailSettingsForm } from "@/modules/settings/forms/EmailSettingsForm";
 import { useEffect, useState } from "react";
